@@ -55,4 +55,45 @@
         app:layout_constraintStart_toStartOf="@+id/tipAmountLabelTextView"
         app:layout_constraintTop_toBottomOf="@+id/tipAmountLabelTextView" />
 
+    <EditText
+        android:id="@+id/tipPercentEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:ems="10"
+        android:hint="@string/tip_percent"
+        android:inputType="numberDecimal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tipPercentTextView"
+        app:layout_constraintStart_toEndOf="@+id/tipPercentTextView" />
+
+    <EditText
+        android:id="@+id/billEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/bill_default"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="@+id/tipPercentEditText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tipAmountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:text="@string/tip_default"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tipAmountLabelTextView"
+        app:layout_constraintStart_toEndOf="@+id/tipAmountLabelTextView" />
+
+    <TextView
+        android:id="@+id/totalAmountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/total_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/totalAmountLabelTextView"
+        app:layout_constraintStart_toEndOf="@+id/totalAmountLabelTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

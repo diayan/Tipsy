@@ -35,7 +35,11 @@
 package com.raywenderlich.android.tipsy
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import com.raywenderlich.android.tipsy.databinding.ActivityMainBinding
+import java.text.NumberFormat
 
 /**
  * Main Screen
@@ -44,12 +48,69 @@ import androidx.appcompat.app.AppCompatActivity
 private const val INITIAL_TIP_PERCENT = 15
 
 class MainActivity : AppCompatActivity() {
+  //1:
+  private lateinit var binding: ActivityMainBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
 
-    setContentView(R.layout.activity_main)
+    //2:
+    binding = ActivityMainBinding.inflate(layoutInflater)
+
+    binding.tipPercentEditText.setText( "$INITIAL_TIP_PERCENT")
+    binding.tipPercentTextView.text = "$INITIAL_TIP_PERCENT%"
+
+
+    binding.billEditText.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+      override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+      override fun afterTextChanged(p0: Editable?) {
+        calculateTip()
+      }
+    })
+
+    binding.tipPercentEditText.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+      override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+      override fun afterTextChanged(p0: Editable?) {
+        binding.tipPercentTextView.text = "${binding.tipPercentEditText.text}%"
+        calculateTip()
+      }
+    })
+    //3:
+    setContentView(binding.root)
+  }
+
+  fun calculateTip() {
+
+    if (binding.billEditText.text.toString().isEmpty() || binding.tipPercentEditText.text.toString()
+                    .isEmpty()) {
+      binding.tipAmountTextView.text = ""
+      binding.totalAmountTextView.text = ""
+      return
+    }
+
+//1:
+    val bill = binding.billEditText.text.toString().toDouble()
+//2:
+    val tipPercent = binding.tipPercentEditText.text.toString().toDouble()
+//3:
+    val tipAmount = (tipPercent * bill) / 100
+//4:
+    val totalAmount = bill + tipAmount
+//5:
+    val formattedTip = NumberFormat.getCurrencyInstance().format(tipAmount)
+//6:
+    val formattedTotalAmount = NumberFormat.getCurrencyInstance().format(totalAmount)
+//7:
+    binding.tipAmountTextView.text = formattedTip.toString()
+//8:
+    binding.totalAmountTextView.text = formattedTotalAmount.toString()
   }
 }
 
